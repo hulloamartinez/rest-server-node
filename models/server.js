@@ -2,6 +2,7 @@ const { throws } = require('assert');
 const express = require('express');
 const cors = require('cors');
 const { listenerCount } = require('process');
+const  {dbConnection} = require ('../db/config')
 
 class Server {
 
@@ -11,12 +12,23 @@ class Server {
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
 
+        //conexion db
+
+        this.conectarDB();
+
         //middlewares 
         this.middlewares();
         //rutasde la appp
 
         this.routes();
         
+    }
+
+    async conectarDB(){
+
+        await dbConnection();
+
+
     }
 
     middlewares(){
@@ -38,7 +50,7 @@ class Server {
 
     routes(){
             //           ruta publica                     ruta interna
-            this.app.use(this.usuariosPath, require('../routes/user'));
+            this.app.use(this.usuariosPath, require('../routes/usuario.rutas'));
               
          
        
