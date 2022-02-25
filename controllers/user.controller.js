@@ -81,13 +81,11 @@ const usuariosDelete = async (req, res = response) =>{
      * BORRAR USUARIO CAMBIANDO EL ESTADO
      */
     const usuario = await Usuario.findByIdAndUpdate(id, {estado: false});
-    
-    res.json(
-        {
-                usuario
-        });
 
-    
+    const usuarioAutenticado = req.usuario;
+
+   
+    res.json(usuario);
 }
 
 const usuariosPatch = (req, res = response) =>{
